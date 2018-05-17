@@ -1,11 +1,12 @@
 class SubscriptionMailer < ActionMailer::Base
   helper :application
   include ApplicationHelper
-  default from: "do-not-reply@#{ActionMailer::Base.default_url_options[:host]}"
+  #default from: "do-not-reply@#{ActionMailer::Base.default_url_options[:host]}"
+  default from: "railsprojects2018@gmail.com"
 
   def notify_node_creation(node)
     subject = '[PublicLab] ' + (node.has_power_tag('question') ? 'Question: ' : '') +
-              node.title
+              node.title + ' (##{node.id})'
     Tag.subscribers(node.tags).each do |_key, val|
       @user = val[:user]
       @node = node
